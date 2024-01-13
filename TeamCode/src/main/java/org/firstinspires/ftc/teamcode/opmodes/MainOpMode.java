@@ -14,7 +14,7 @@ public class MainOpMode extends LinearOpMode {
     DTMove dtMove;
     FSM fsm;
     DcMotorEx intake;
-    public static double intakePower=0.4;
+    public static double intakePower=0.33;
     Gamepad previousGamepad1;
     Gamepad previousGamepad2;
     boolean intakeActive = false;

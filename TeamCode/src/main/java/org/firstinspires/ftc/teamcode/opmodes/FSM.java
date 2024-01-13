@@ -86,8 +86,8 @@ public class FSM {
         if(gamepad1.right_bumper) arm.setClaw(0.5);
         if(gamepad1.left_bumper) arm.setClaw(0);
         if(gamepad1.dpad_left) currentTarget = slideLowPos;
-        if(gamepad1.dpad_up) currentTarget = slideHighPos;
-        if(gamepad1.dpad_right) currentTarget = slideMidPos;
+        if(gamepad1.dpad_right) currentTarget = slideHighPos;
+        if(gamepad1.dpad_up) currentTarget = slideMidPos;
         if(gamepad1.left_trigger == 1 && gamepad1.right_trigger == 1) slideActive = false;
         if(slideActive) slide.movePid(maxPower, minPower);
         slide.update();
