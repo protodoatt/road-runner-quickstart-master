@@ -16,8 +16,8 @@ import java.util.concurrent.TimeUnit;
 public class Parkleft extends LinearOpMode {
     MecanumDrive robot;
     ElapsedTime timer = new ElapsedTime();
-    double power = 0.4;
-    double time = 1.8;
+    double power = 0.425;
+    double time = 2.1;
     @Override
     public void runOpMode(){
         robot = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));

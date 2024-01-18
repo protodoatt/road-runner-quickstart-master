@@ -20,9 +20,10 @@ public class FSM {
     public static double downPosition = 0;
     public static double maxPower = 0.8, minPower = -0.5;
     public static boolean slideActive = true;
-    public static double armDownPos = 0.1, armHoldPos = 0.02, armUpPos=0.83;
-    public static double wristDownPos = 0.07,wristHoldPos = 0.02,  wristUpPos = 1;
+    public static double armDownPos = 0.1, armHoldPos = 0.04, armUpPos=0.83;
+    public static double wristDownPos = 0.03,wristHoldPos = 0.03,  wristUpPos = 0.9;
     public static double slideLowPos = 350, slideHighPos = 850, slideMidPos = 600;
+    public static double clawClosedPos = 0.5, clawOpenPos = 0;
     public static double currentTarget = slideLowPos;
     public enum State {
         START_POS,
@@ -55,6 +56,7 @@ public class FSM {
                     arm.setArm(armDownPos);
                     arm.setWrist(wristDownPos);
                 }
+                if(Math.abs(gamepad1.left_stick_y) > 0.1) arm.setWrist(gamepad1.left_stick_y/2);
             }
             break;
             case MOVING: {
@@ -71,6 +73,9 @@ public class FSM {
                     arm.setArm(armDownPos);
                     state = FSM.State.RETURNING;
                 }
+                if(gamepad1.left_bumper) {
+                    arm.setWrist(1);
+                }
                 if(gamepad1.dpad_left || gamepad1.dpad_right || gamepad1.dpad_up) slide.setTargetPosition(currentTarget);
             }
             break;
@@ -83,8 +88,8 @@ public class FSM {
             }
 
         }
-        if(gamepad1.right_bumper) arm.setClaw(0.5);
-        if(gamepad1.left_bumper) arm.setClaw(0);
+        if(gamepad1.right_bumper) arm.setClaw(clawClosedPos);
+        if(gamepad1.left_bumper) arm.setClaw(clawOpenPos);
         if(gamepad1.dpad_left) currentTarget = slideLowPos;
         if(gamepad1.dpad_right) currentTarget = slideHighPos;
         if(gamepad1.dpad_up) currentTarget = slideMidPos; //comm

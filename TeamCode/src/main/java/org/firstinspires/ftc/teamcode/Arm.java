@@ -27,5 +27,6 @@ public class Arm {
         wrist.setPosition(position);
     }
     public void setClaw(double position) {claw.setPosition(position);}
+    public double getWrist() {return wrist.getPosition();}
 
 }
