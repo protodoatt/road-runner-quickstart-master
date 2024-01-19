@@ -20,10 +20,10 @@ public class FSM {
     public static double downPosition = 0;
     public static double maxPower = 0.8, minPower = -0.5;
     public static boolean slideActive = true;
-    public static double armDownPos = 0.1, armHoldPos = 0.04, armUpPos=0.83;
-    public static double wristDownPos = 0.03,wristHoldPos = 0.03,  wristUpPos = 0.9;
+    public static double armDownPos = 0.1, armHoldPos = 0.025, armUpPos=0.83;
+    public static double wristDownPos = 0.03,wristHoldPos = 0.00,  wristUpPos = 0.9;
     public static double slideLowPos = 350, slideHighPos = 850, slideMidPos = 600;
-    public static double clawClosedPos = 0.5, clawOpenPos = 0;
+    public static double clawClosedPos = 0.45, clawOpenPos = 0.9;
     public static double currentTarget = slideLowPos;
     public enum State {
         START_POS,
