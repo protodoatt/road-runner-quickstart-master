@@ -33,7 +33,7 @@ public class IntakeTester extends LinearOpMode {
         claw = hardwareMap.get(ServoImplEx.class, "clawservo");
         culisante = hardwareMap.get(DcMotorEx.class, "culisante");
         arm.setDirection(Servo.Direction.FORWARD);
-        wrist.setDirection(Servo.Direction.FORWARD);
+        wrist.setDirection(Servo.Direction.REVERSE);
         //arm.setPwmRange(PwmControl.PwmRange );
         waitForStart();
         while(opModeIsActive()) {

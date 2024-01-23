@@ -105,4 +105,7 @@ public class FSM {
     public State getState() {
         return state;
     }
+
+    public double getWrist(){ return arm.getWrist();}
+    public void setwristpos(){ arm.setWrist(wristDownPos);}
 }

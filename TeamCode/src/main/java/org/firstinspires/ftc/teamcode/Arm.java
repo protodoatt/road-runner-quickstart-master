@@ -9,6 +9,8 @@ public class Arm {
     ServoImplEx arm;
     ServoImplEx wrist;
     ServoImplEx claw;
+    ServoImplEx plane;
+
 
     public Arm(HardwareMap hardwareMap) {
         arm = hardwareMap.get(ServoImplEx.class, "armservo");
@@ -16,7 +18,9 @@ public class Arm {
         wrist.setPwmRange(new PwmControl.PwmRange(500, 2500));
         claw = hardwareMap.get(ServoImplEx.class, "clawservo");
         arm.setDirection(Servo.Direction.FORWARD);
-        wrist.setDirection(Servo.Direction.FORWARD);
+        wrist.setDirection(Servo.Direction.REVERSE);
+        plane = hardwareMap.get(ServoImplEx.class, "plane");
+
     }
 
     public void setArm(double position) {
@@ -28,5 +32,6 @@ public class Arm {
     }
     public void setClaw(double position) {claw.setPosition(position);}
     public double getWrist() {return wrist.getPosition();}
+
 
 }
