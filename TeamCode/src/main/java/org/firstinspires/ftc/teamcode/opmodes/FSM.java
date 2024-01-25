@@ -23,7 +23,7 @@ public class FSM {
     public static double armDownPos = 0.1, armHoldPos = 0.0, armUpPos=0.83;
     public static double wristDownPos = 0.03,wristHoldPos = 0.03,  wristUpPos = 0.85;
     public static double slideLowPos = 350, slideHighPos = 850, slideMidPos = 600;
-    public static double clawClosedPos = 0.45, clawOpenPos = 0;
+    public static double clawClosedPos = 0.54, clawOpenPos = 0;
     public static double currentTarget = slideLowPos;
     public enum State {
         START_POS,

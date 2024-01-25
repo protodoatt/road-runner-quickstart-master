@@ -174,7 +174,7 @@ public class AutoTest extends LinearOpMode {
                 //.strafeToConstantHeading(new Vector2d(49.14, 34.10))
                 .afterTime(1, retractEverything())
                 .strafeTo(new Vector2d(54, 64))
-                .build();
+                  .build();
         arm.setArm(0.1);
         arm.setWrist(0.1);
         while(opModeInInit()) {
@@ -184,7 +184,7 @@ public class AutoTest extends LinearOpMode {
         Actions.runBlocking(initSlide());
         Actions.runBlocking(new ParallelAction(
                 updateSlide(),
-                MidMax
+            RightMax
         ));
 
         while (opModeIsActive()) {
