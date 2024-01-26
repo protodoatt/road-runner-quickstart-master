@@ -14,7 +14,6 @@ import org.firstinspires.ftc.teamcode.vision.PropDetectionBlueFar;
 import org.firstinspires.ftc.teamcode.vision.PropDetectionRedClose;
 import org.firstinspires.ftc.vision.VisionPortal;
 
-@Disabled
 @Config
 @Autonomous(name="Vision Calibration Red Close")
 public class VisionCalibrationRedClose extends LinearOpMode {

@@ -27,12 +27,14 @@ import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.teamcode.Slides;
 import org.firstinspires.ftc.teamcode.vision.PropDetectionBlueClose;
 import org.firstinspires.ftc.teamcode.vision.PropDetectionBlueFar;
+import org.firstinspires.ftc.teamcode.vision.PropDetectionRedClose;
+import org.firstinspires.ftc.teamcode.vision.PropDetectionRedFar;
 import org.firstinspires.ftc.vision.VisionPortal;
 
 import java.util.concurrent.TimeUnit;
 
-@Autonomous(name = "AutoBlueBackboardSide")
-public class AutoTest extends LinearOpMode {
+@Autonomous(name = "AutoRedBackboardSide")
+public class AutoRedBackboardSide extends LinearOpMode {
 
     MecanumDrive drive;
 
@@ -43,7 +45,7 @@ public class AutoTest extends LinearOpMode {
     int lastDetection = 2;
 
     private VisionPortal portal;
-    private PropDetectionBlueFar processor;
+    private PropDetectionRedClose processor;
 
 
 
@@ -88,7 +90,7 @@ public class AutoTest extends LinearOpMode {
         };
     }
     //public static Pose2d beginningPose = new Pose2d(9.86, 62.41, Math.toRadians(90));
-    public static Pose2d beginningPose = new Pose2d(11.15, 63.15, Math.toRadians(90));
+    public static Pose2d beginningPose = new Pose2d(11.15, -63.15, Math.toRadians(270));
     public Action MidMax, RightMax, LeftMax, correctTraj;
 
     public Action OpenClaw() {
@@ -132,7 +134,7 @@ public class AutoTest extends LinearOpMode {
         slide = new Slides(hardwareMap);
         arm = new Arm(hardwareMap);
 
-        processor = new PropDetectionBlueFar();
+        processor = new PropDetectionRedClose();
         portal = new VisionPortal.Builder()
                 .setCamera(hardwareMap.get(WebcamName.class, "Webcam 1"))
                 .setCameraResolution(new Size(640, 480))
@@ -144,46 +146,47 @@ public class AutoTest extends LinearOpMode {
 
 
         MidMax = drive.actionBuilder(drive.pose)
-                .lineToY(39.21)
-                .lineToY(50)
-                .strafeTo(new Vector2d(37.44, 50.16))
-                .strafeTo(new Vector2d(41.71, 34.10))
+                .lineToY(-39.21)
+                .lineToY(-50)
+                .strafeTo(new Vector2d(37.44, -50.16))
+                .strafeTo(new Vector2d(41.71, -34.10))
                 .afterDisp(5, extendSlide())
                 .turnTo(Math.toRadians(160))
                 .waitSeconds(1)
                 .lineToXSplineHeading(49, Math.toRadians(177))
-                .strafeTo(new Vector2d(55.24, 41))
+                .strafeTo(new Vector2d(57.74, -37))
                 .afterTime(2, wristScore())
                 .afterTime(4, OpenClaw())
                 .waitSeconds(6)
                 .lineToX(50)
-                .strafeToConstantHeading(new Vector2d(50, 66))
+                .strafeToConstantHeading(new Vector2d(50, -66))
                 //.strafeToConstantHeading(new Vector2d(49.14, 34.10))
                 .afterTime(1, retractEverything())
-                .strafeTo(new Vector2d(54, 64))
+                .strafeTo(new Vector2d(54, -64))
                 .build();
-        RightMax = drive.actionBuilder(drive.pose)
-                .lineToY(48)
+        LeftMax = drive.actionBuilder(drive.pose)
+                .lineToY(-48)
                 //.lineToXLinearHeading(8, Math.toRadians(0))
-                .strafeToLinearHeading(new Vector2d(11.50, 37.97), Math.toRadians(20))
+                .strafeToLinearHeading(new Vector2d(11.50, -37.97), Math.toRadians(0))
                 //here starts yellow
-                .strafeToLinearHeading(new Vector2d(54.21, 29), Math.toRadians(180-10))
+                .strafeToLinearHeading(new Vector2d(56.21, -30.5), Math.toRadians(180))
                 .afterDisp(20, extendSlide())
                 .afterTime(5, wristScore())
                 .afterTime(6, OpenClaw())
                 .waitSeconds(3)
                 .lineToX(50)
-                .strafeToConstantHeading(new Vector2d(50, 66))
+                .strafeToConstantHeading(new Vector2d(50, -66))
                 //.strafeToConstantHeading(new Vector2d(49.14, 34.10))
                 .afterTime(1, retractEverything())
-                .strafeTo(new Vector2d(54, 64))
+                .strafeTo(new Vector2d(54, -64))
                 .build();
-        LeftMax = drive.actionBuilder(drive.pose)
-                .lineToYLinearHeading(32.5, Math.toRadians(140.5), new AngularVelConstraint(0.5))
+        RightMax = drive.actionBuilder(drive.pose)
+                .lineToY(-50)
+                .lineToYLinearHeading(-32.5, Math.toRadians(140.5), new AngularVelConstraint(0.5))
                 //yellow starts below
-                .strafeTo(new Vector2d(26.46, 57.52))
-                .strafeToLinearHeading(new Vector2d(44.61, 39.97), Math.toRadians(179))
-                .strafeToLinearHeading(new Vector2d(51.81,  39.97), Math.toRadians(179))
+                .strafeTo(new Vector2d(26.46, -57.52))
+                .strafeToLinearHeading(new Vector2d(44.61, -39.97), Math.toRadians(179))
+                .strafeToLinearHeading(new Vector2d(51.81,  -39.97), Math.toRadians(179))
                 .afterDisp(25, extendSlide())
                 .afterDisp(30, wristScore())
                 .afterTime(5, OpenClaw())
@@ -191,11 +194,11 @@ public class AutoTest extends LinearOpMode {
                 //.turnTo(Math.toRadians(180-20))
                 //.strafeTo(new Vector2d(20.50, 37.97))
                 .lineToX(50)
-                .strafeToConstantHeading(new Vector2d(50, 66))
+                .strafeToConstantHeading(new Vector2d(50, -66))
                 //.strafeToConstantHeading(new Vector2d(49.14, 34.10))
                 .afterTime(1, retractEverything())
-                .strafeTo(new Vector2d(54, 64))
-                  .build();
+                .strafeTo(new Vector2d(54, -64))
+                .build();
 
 
 

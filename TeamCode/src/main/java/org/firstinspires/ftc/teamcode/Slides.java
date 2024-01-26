@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.utils.PIDCoefficients;
 public class Slides {
     DcMotorEx slidemotor;
     PIDController controller;
-    public static double kp=0.03, ki=0, kd = 0.0002;
+    public static double kp=0.03, ki=0, kd = 0.0001;
     PIDCoefficients coefs = new PIDCoefficients(kp, ki, kd);
     public static double targetPos = 0;
     double supposedPower;

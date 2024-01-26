@@ -12,12 +12,13 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.vision.PropDetectionBlueClose;
 import org.firstinspires.ftc.vision.VisionPortal;
 
-@Disabled
 @Config
 @Autonomous(name="Vision Calibration Blue Close")
 public class VisionCalibrationBlueClose extends LinearOpMode {
     private VisionPortal portal;
     private PropDetectionBlueClose processor;
+
+
 
     @Override
     public void runOpMode() throws InterruptedException {

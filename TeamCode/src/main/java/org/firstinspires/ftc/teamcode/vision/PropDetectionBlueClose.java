@@ -23,8 +23,8 @@ public class PropDetectionBlueClose implements VisionProcessor {
     public static double leftThresh = 800000;
     public double leftSum = 0;
 
-    public static int middleRectX1 = 90, middleRectY1 = 150;
-    public static int middleRectX2 = 155, middleRectY2 = 255;
+    public static int middleRectX1 = 120, middleRectY1 = 150;
+    public static int middleRectX2 = 450, middleRectY2 = 300;
 
     public static double middleThresh = 600000;
     public double middleSum = 0;

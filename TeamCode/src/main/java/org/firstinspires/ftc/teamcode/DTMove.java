@@ -23,7 +23,7 @@ public class DTMove {
         else if(currentGamepad1.a) driverCentric=false;
 
         if (currentGamepad1.right_bumper) {
-            coef = 0.5;
+            coef = 0.65;
 
         }
         else
