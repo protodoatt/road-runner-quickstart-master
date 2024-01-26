@@ -35,11 +35,11 @@ public class MainOpMode extends LinearOpMode {
         while (opModeIsActive()) {
             dtMove.Move(gamepad1);
             fsm.update(gamepad2);
-
             if(gamepad1.x && !previousGamepad1.x)
                 intakeActive = !intakeActive;
             if(intakeActive) intake.setPower(intakePower);
             else intake.setPower(0);
+            if(gamepad2.right_bumper) gamepad1.rumble(350);
             if(gamepad1.left_stick_button && gamepad1.right_stick_button) plane.openPlane();
             telemetry.addData("state", fsm.getState());
             telemetry.addData("theta", dtMove.getTheta());

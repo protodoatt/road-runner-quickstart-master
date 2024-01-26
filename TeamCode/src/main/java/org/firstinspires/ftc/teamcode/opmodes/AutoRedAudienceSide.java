@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.opmodes;
 
+import android.util.Size;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -18,17 +20,25 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.checkerframework.checker.units.qual.A;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.BuiltinCameraDirection;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.Arm;
 import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.teamcode.Slides;
+import org.firstinspires.ftc.teamcode.vision.PropDetectionRedClose;
+import org.firstinspires.ftc.vision.VisionPortal;
 
 @Autonomous(name = "AutoRedAudienceSide", preselectTeleOp = "MainOpMode")
 
 public class AutoRedAudienceSide extends LinearOpMode {
     AutoTest autoTest;
-    Action pushPurplParkMid, pushPurplParkLeft, pushPurplParkRight;
+    Action pushPurplParkMid, pushPurplParkLeft, pushPurplParkRight, correctTraj;
     Pose2d beginningPose;
     MecanumDrive drive;
+
+
+    private VisionPortal portal;
+    private PropDetectionRedClose processor;
     Arm arm;
     Slides slide;
     VelConstraint midspeed = new VelConstraint() {
@@ -39,12 +49,23 @@ public class AutoRedAudienceSide extends LinearOpMode {
     };
 
     TurnConstraints midconst = new TurnConstraints(2, 0, MecanumDrive.PARAMS.maxAngAccel);
+
+    int lastDetection = 2;
     @Override
     public void runOpMode() {
         beginningPose = new Pose2d(new Vector2d(-36.71, -60.87), Math.toRadians(-90));
         drive = new MecanumDrive(hardwareMap, beginningPose);
         arm = new Arm(hardwareMap);
         slide = new Slides(hardwareMap);
+
+        processor = new PropDetectionRedClose();
+        portal = new VisionPortal.Builder()
+                .setCamera(hardwareMap.get(WebcamName.class, "Webcam 1"))
+                .setCameraResolution(new Size(640, 480))
+                .setCamera(BuiltinCameraDirection.BACK)
+                .addProcessor(processor)
+                .build();
+
         Actions.runBlocking(autoTest.initSlide());
         pushPurplParkMid = drive.actionBuilder(drive.pose)
                 .lineToYConstantHeading(-37.21)
@@ -79,11 +100,15 @@ public class AutoRedAudienceSide extends LinearOpMode {
         arm.setWrist(0.1);
         while(opModeInInit()) {
             if(gamepad1.x) arm.setClaw(1);
+            lastDetection = processor.detection;
         }
         waitForStart();
+        if(lastDetection == 1) correctTraj = pushPurplParkLeft;
+        if(lastDetection == 2) correctTraj = pushPurplParkMid;
+        if(lastDetection == 3) correctTraj = pushPurplParkRight;
         Actions.runBlocking(new ParallelAction(
             autoTest.updateSlide(),
-            pushPurplParkRight
+            correctTraj
         ));
     }
 }
